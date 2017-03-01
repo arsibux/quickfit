@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Package;
 use Carbon\Carbon;
+use App\Models\Subscription;
 
 class RegisterController extends Controller {
     /*
@@ -67,13 +68,23 @@ use RegistersUsers;
 //        dd($package);exit;
         $package_ends_at = $this->package_validity($package->validity);
 
-        dd($package_ends_at);
-        exit;
-        User::create([
+//        dd($package_ends_at);exit;
+         User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+         if(auth()->id){
+        Subbscription::create([
+            'name' => $package->name,
+            'payment' => 0,
+            'trial_ends_at' => Carbon::now()->addMonths(1),
+            'ends_at' => $this->package_validity($package->validity),
+            'user_id' => auth()->id,
+            
+        ]);
+        }
+       
     }
 
     public function package_validity($validity) {
@@ -83,16 +94,16 @@ use RegistersUsers;
                 $package_validity['package'] = "Trial Package";
                 $package_validity['ends_at'] = Carbon::now()->addMonths($validity);
                 break;
-            case 2:
-                $package_validity['package'] = "Trial Package";
-                $package_validity['ends_at'] = Carbon::now()->addMonths($validity);
-                break;
             case 3:
-                $package_validity['package'] = "Trial Package";
+                $package_validity['package'] = "Silver Package";
                 $package_validity['ends_at'] = Carbon::now()->addMonths($validity);
                 break;
-            case 4:
-                $package_validity['package'] = "Trial Package";
+            case 6:
+                $package_validity['package'] = "Gold Package";
+                $package_validity['ends_at'] = Carbon::now()->addMonths($validity);
+                break;
+            case 12:
+                $package_validity['package'] = "Classic Package";
                 $package_validity['ends_at'] = Carbon::now()->addMonths($validity);
                 break;
         }
