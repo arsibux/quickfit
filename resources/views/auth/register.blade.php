@@ -60,21 +60,6 @@
                     </span>
                 @endif
             </div>
-            
-            <div class="form-group has-feedback{{ $errors->has('subscription') ? ' has-error' : '' }}">
-                <select type="text" class="form-control" name="subscription" value="{{ old('subscription') }}" placeholder="Subscription">
-                <option default disabled selected hidden>Select Your Package</option>
-                <option value="1">Trial Package</option>
-                <option value="2">Silver Package</option>
-                <option value="3">Gold Package</option>
-                <option value="4">Classic Package</option>
-                </select>
-                @if ($errors->has('subscription'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('subscription') }}</strong>
-                    </span>
-                @endif
-            </div>
 
             <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                 <input type="password" class="form-control" name="password" placeholder="Password">
