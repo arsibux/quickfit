@@ -45,15 +45,4 @@ use AuthenticatesUsers;
             }
         }
     }
-
 }
-
-//
-// if (Auth::check()) {
-//            if (Auth::id() == 1) {
-//                return '/companies';
-//            } elseif (Auth::user()->subscription) {
-//                return Auth::user()->company ? '/customers' : '/companies/create';
-//            }
-//        } 
-//    }
